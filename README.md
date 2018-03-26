@@ -15,6 +15,36 @@
   annotationProcessor "org.etby.datacache:datacache-compiler:<version>" // kotlin 使用 kapt
 ```
 
+### 搭配Gson
+
+搭配Gson之后可以对服务器返回的字段自动进行标记, 这样就可以自动更新字段, 保持内存中数据最新. (当然, 这个方案的靠谱程度取决于服务器接口的完善程度)
+
+由于我这边使用Gson, 所以我做了Gson的Hack. 如果使用其他解析库, 具体可以参考下面的例子, 做其他库的Hack.
+
+#### 加入 mavenCentral 仓库依赖
+
+```
+allprojects {
+  repositories {
+    mavenCentral()
+    jcenter()
+  }
+} 
+```
+
+#### 加入Gson依赖
+
+`implementation "org.etby.datacache:gson:0.1.1"` // 这是基于Gson 2.8.2 魔改的版本
+
+#### 过滤其他库的Gson依赖
+
+```groovy
+  // 在所有内部依赖gson的库都需要做过滤
+  implementation('com.squareup.retrofit2:converter-gson:2.4.0') {
+    exclude group: 'com.google.code.gson'
+  }
+```
+
 ### 数据类处理
 
 - 所有需要同步的数据类需要继承接口`Cacheable`，实现两个方法：

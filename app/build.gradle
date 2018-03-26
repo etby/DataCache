@@ -42,8 +42,15 @@ dependencies {
   androidTestImplementation 'com.android.support.test:runner:1.0.1'
   androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-//  implementation "org.etby.datacache:datacache:$PUBLISH_VERSION"
-//  annotationProcessor "org.etby.datacache:datacache-compiler:$PUBLISH_VERSION"
-  implementation project(':datacache')
-  annotationProcessor project(':datacache-compiler')
+    implementation "org.etby.datacache:datacache:$PUBLISH_VERSION"
+    annotationProcessor "org.etby.datacache:datacache-compiler:$PUBLISH_VERSION"
+//  implementation project(':datacache')
+//  annotationProcessor project(':datacache-compiler')
+
+  // gson
+  implementation "org.etby.datacache:gson:0.1.1"
+
+  implementation('com.squareup.retrofit2:converter-gson:2.4.0') {
+    exclude group: 'com.google.code.gson'
+  }
 }
